@@ -33,19 +33,20 @@ public class EndActivity extends AppCompatActivity {
         initVars();
 
         Intent intent = getIntent();
-        String winnerName = intent.getStringExtra(getString(R.string.winnerNameExtra));
-        String winnerScore = intent.getStringExtra(getString(R.string.winnerScoreExtra));
+        Bundle players = intent.getExtras();
+        Player p1 = (Player) players.get(getString(R.string.loser));
+        Player p2 = (Player) players.get(getString(R.string.winner));
+        player1Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),p1.getFinalName(),p1.getCorrectAnswers()+"/"+ p1.getQuestionsAnswered()));
+        player2Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),p2.getFinalName(),p2.getCorrectAnswers()+"/"+ p2.getQuestionsAnswered()));
 
-        String loserName = intent.getStringExtra(getString(R.string.loserNameExtra));
-        String loserScore = intent.getStringExtra(getString(R.string.loserScoreExtra));
-        player1Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),winnerName,winnerScore));
-        player2Result.setText(String.format(Locale.ENGLISH,getString(R.string.PlayerScoreBanner),loserName,loserScore));
+        if (p1.getCorrectAnswers()== p2.getCorrectAnswers()) winnerBanner.setText(R.string.tie);
+        else winnerBanner.setText(String.format(Locale.ENGLISH,getString(R.string.WinnerBanner),(p1.getCorrectAnswers()> p2.getCorrectAnswers())?p1.getFinalName():p2.getFinalName()));
 
-        winnerBanner.setText(String.format(Locale.ENGLISH,getString(R.string.WinnerBanner),winnerName));
+        if (!p1.isCheater()) Leaderboard.addPlayer(p1.getName(),p1.getCorrectAnswers(),p1.getQuestionsAnswered());
+        if (!p2.isCheater()) Leaderboard.addPlayer(p2.getName(),p2.getCorrectAnswers(),p2.getQuestionsAnswered());
 
         restart.setOnClickListener(view -> {
-            Intent intent1 = new Intent(EndActivity.this,NameActivity.class);
-            startActivity(intent1);
+            finish();
         });
     }
 }

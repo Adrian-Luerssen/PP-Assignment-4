@@ -59,14 +59,16 @@
 
     <string name="EXTRA_ANSWER_IS_TRUE">INTENT_EXTRA_KEY_FOR_ANSWER</string>
     <string name="EXTRA_ANSWER_SHOWN">INTENT_EXTRA_KEY_IF_CHEATER</string>
-    <string name="winnerNameExtra">winnerNameExtra</string>
-    <string name="loserNameExtra">loserNameExtra</string>
 
-    <string name="winnerScoreExtra">winnerScoreExtra</string>
-    <string name="loserScoreExtra">loserScoreExtra</string>
+    <string name="winner">winnerExtra</string>
+    <string name="loser">loserExtra</string>
 
     <string name="answerIsTrue">The answer is True</string>
     <string name="answerIsFalse">The answer is False</string>
 
     <string name="playersTurn">It is %s\'s turn.</string>
+    <string name="leaderboard_preferences_key">LEADERBOARD_KEY</string>
+    <string name="leaderboard">no players registered</string>
+    <string name="startGame">Start</string>
+    <string name="tie">It was a tie!</string>
 </resources>

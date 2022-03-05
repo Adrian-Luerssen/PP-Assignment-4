@@ -204,11 +204,10 @@ public class MainActivity extends AppCompatActivity {
     public void endGame(){
         // passing all of the game information to the ending screen
         Intent myIntent = new Intent(MainActivity.this, EndActivity.class);
-        myIntent.putExtra(getString(R.string.winnerNameExtra), (player2.getCorrectAnswers() > player1.getCorrectAnswers())?player2.getFinalName():player1.getFinalName()); //Optional parameters
-        myIntent.putExtra(getString(R.string.winnerScoreExtra), (player2.getCorrectAnswers() > player1.getCorrectAnswers())?player2.getCorrectAnswers()+"/"+ player2.getQuestionsAnswered():player1.getCorrectAnswers()+"/"+ player1.getQuestionsAnswered()); //Optional parameters
-        myIntent.putExtra(getString(R.string.loserNameExtra), (player2.getCorrectAnswers() < player1.getCorrectAnswers())?player2.getFinalName():player1.getFinalName()); //Optional parameters
-        myIntent.putExtra(getString(R.string.loserScoreExtra), (player2.getCorrectAnswers() < player1.getCorrectAnswers())?player2.getCorrectAnswers()+"/"+ player2.getQuestionsAnswered():player1.getCorrectAnswers()+"/"+ player1.getQuestionsAnswered()); //Optional parameters
+        myIntent.putExtra(getString(R.string.winner),player1);
+        myIntent.putExtra(getString(R.string.loser),player2);
         MainActivity.this.startActivity(myIntent);
+        finish();
     }
 
 

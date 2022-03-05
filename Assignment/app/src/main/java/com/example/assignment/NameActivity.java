@@ -53,6 +53,7 @@ public class NameActivity extends AppCompatActivity {
                 if(click_ctr == 2){
                     intent.putExtra("player2", new Player(usernameInput.getText().toString()));
                     startActivity(intent);
+                    finish();
                 } else {
                     menuText.setText(String.format(getString(R.string.username_input_menu), click_ctr + 1));
                     intent.putExtra("player1", new Player(usernameInput.getText().toString()));
