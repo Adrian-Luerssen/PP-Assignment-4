@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class CheatActivity extends AppCompatActivity {
 
     private Button showAnswer;
+    private boolean cheated;
 
     public static Intent newIntent(Context context, boolean answerIsTrue) {
         Intent intent = new Intent(context,CheatActivity.class);
@@ -28,16 +29,12 @@ public class CheatActivity extends AppCompatActivity {
         showAnswer = findViewById(R.id.CheaterConfirmationButton);
 
         showAnswer.setOnClickListener(view -> {
-            setAnswerShownResult(true);
             if (answerIsTrue) ((TextView)findViewById(R.id.answer)).setText(R.string.answerIsTrue);
             else ((TextView)findViewById(R.id.answer)).setText(R.string.answerIsFalse);
+            setResult(MainActivity.REQUEST_CHEAT_CODE);
         });
 
     }
 
-    private void setAnswerShownResult (boolean isAnswerShown){
-        Intent data = new Intent();
-        data.putExtra("answer shown", isAnswerShown);
-        setResult(RESULT_OK, data);
-    }
+
 }

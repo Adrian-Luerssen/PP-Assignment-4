@@ -27,12 +27,12 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         String leaderboard = (String) mapSharedPref.get(getString(R.string.leaderboard_preferences_key));
         leaderboardText.setText(leaderboard);
-        Leaderboard.addPlayers(leaderboard);
+        //Leaderboard.addPlayers(leaderboard);
 
         startGame.setOnClickListener(view -> {
             Intent newGame = new Intent(LeaderboardActivity.this, NameActivity.class);
             startActivity(newGame);
-            leaderboardText.setText(Leaderboard.getPlayers());
+            //leaderboardText.setText(Leaderboard.getPlayers());
         });
     }
 
@@ -44,7 +44,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),Leaderboard.getPlayers()).apply();
+        //sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),Leaderboard.getPlayers()).apply();
         //sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),"").apply();
     }
 }
