@@ -1,25 +1,22 @@
 package com.example.assignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class Player implements Serializable, Comparable {
 
+    @SerializedName("name")
     private String name;
+    @SerializedName("correctAnswers")
     private int correctAnswers;
+    @SerializedName("questionsAnswered")
     private int questionsAnswered;
+    @SerializedName("isCheater")
     private boolean isCheater;
-
-    private boolean[] questionState;
 
     public Player(String name) {
         this.name = name;
-    }
-
-    public void initializeQuestions(){
-
     }
 
     public String getFinalName() { return (isCheater)?"Cheater "+name:"Player "+name; }
@@ -50,8 +47,13 @@ public class Player implements Serializable {
         isCheater = cheater;
     }
 
+    public float getRatio() {
+        return (float)correctAnswers / (float)questionsAnswered;
+    }
 
 
-
-
+    @Override
+    public int compareTo(Object o) {
+        return this.getCorrectAnswers() - ((Player) o).getCorrectAnswers();
+    }
 }

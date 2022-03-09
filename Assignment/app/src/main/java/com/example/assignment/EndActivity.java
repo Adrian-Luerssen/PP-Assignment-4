@@ -42,8 +42,8 @@ public class EndActivity extends AppCompatActivity {
         if (p1.getCorrectAnswers()== p2.getCorrectAnswers()) winnerBanner.setText(R.string.tie);
         else winnerBanner.setText(String.format(Locale.ENGLISH,getString(R.string.WinnerBanner),(p1.getCorrectAnswers()> p2.getCorrectAnswers())?p1.getFinalName():p2.getFinalName()));
 
-        if (!p1.isCheater()) Leaderboard.addPlayer(p1.getName(),p1.getCorrectAnswers(),p1.getQuestionsAnswered());
-        if (!p2.isCheater()) Leaderboard.addPlayer(p2.getName(),p2.getCorrectAnswers(),p2.getQuestionsAnswered());
+        if (!p1.isCheater()) Leaderboard.addPlayer(p1);
+        if (!p2.isCheater()) Leaderboard.addPlayer(p2);
 
         restart.setOnClickListener(view -> {
             finish();

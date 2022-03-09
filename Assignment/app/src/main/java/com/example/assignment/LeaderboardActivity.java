@@ -12,11 +12,14 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 public class LeaderboardActivity extends AppCompatActivity {
+
     private TextView leaderboardText;
     private Button startGame;
     private SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         initVars();
@@ -26,13 +29,17 @@ public class LeaderboardActivity extends AppCompatActivity {
         HashMap mapSharedPref = (HashMap) sharedPref.getAll();
 
         String leaderboard = (String) mapSharedPref.get(getString(R.string.leaderboard_preferences_key));
-        leaderboardText.setText(leaderboard);
-        //Leaderboard.addPlayers(leaderboard);
+
+
+
+        Leaderboard.loadPlayers(leaderboard);
+        leaderboardText.setText(Leaderboard.getTop10());
 
         startGame.setOnClickListener(view -> {
             Intent newGame = new Intent(LeaderboardActivity.this, NameActivity.class);
             startActivity(newGame);
-            //leaderboardText.setText(Leaderboard.getPlayers());
+            leaderboardText.setText(Leaderboard.getPlayers());
+            leaderboardText.setText(Leaderboard.getTop10());
         });
     }
 
@@ -44,7 +51,6 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),Leaderboard.getPlayers()).apply();
-        //sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),"").apply();
+        sharedPref.edit().putString(getString(R.string.leaderboard_preferences_key),Leaderboard.savePlayers()).apply();
     }
 }

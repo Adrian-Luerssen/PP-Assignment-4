@@ -1,52 +1,81 @@
 package com.example.assignment;
 
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Leaderboard {
-    private static ArrayList<String> leaderboard = new ArrayList<>();
 
+    private static final ArrayList<Player> leaderboard = new ArrayList<>();
 
-    public static void addPlayer (String playerName, String score){
-        leaderboard.add(findPos(playerName+": "+score),playerName+": "+score);
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    public static void addPlayer(Player player) {
+        leaderboard.add(player);
+        Collections.sort(leaderboard);
     }
 
-    private static int findPos(String newPlayer) {
-        int i =0;
-        for (String player : leaderboard){
-            if (ratio(player) < ratio(newPlayer)) return i;
-            i++;
+    public static void loadPlayers(String playerJson) {
+
+        System.out.print(playerJson);
+
+        JSONArray playerFormat = gson.fromJson(playerJson, JSONArray.class);
+
+        try {
+
+            if(playerJson != null) {
+                for (int i = 0; i < playerFormat.length(); i++) {
+                    leaderboard.add(gson.fromJson(String.valueOf(playerFormat.getJSONObject(i)), Player.class));
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return i;
-    }
 
-    private static float ratio(String s){
-        float a = Float.parseFloat(s.split(":")[1].split("/")[0]);
-        float b = Float.parseFloat(s.split(":")[1].split("/")[1]);
-        return a/b;
-    }
 
-    public static void addPlayers(String leaderboard) {
-        for (String player: leaderboard.split("\n")){
-            if (player.split(":").length == 2 && player.split(":")[1].split("/").length == 2) addPlayer(player);
+    }
+    public static String getTop10(){
+        String s = "";
+        if (leaderboard.size() > 0){
+            for (int i = 1; i < 11; i++) {
+                s+=i+"). "+leaderboard.get(i-1).getName()+leaderboard.get(i-1).getCorrectAnswers()+"/"+leaderboard.get(i-1).getQuestionsAnswered()+"\n";
+            }
+        } else {
+            s = "no players registered";
         }
+
+        return s;
     }
 
-    private static void addPlayer(String player) {
-        leaderboard.add(findPos(player),player);
-    }
+    public static String getPlayers(){
 
-    public static String getPlayers() {
-        String concatPlayers = "";
-        for (int i = 0; i<leaderboard.size()-1;i++){
-            concatPlayers+= leaderboard.get(i)+"\n";
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(Player player : leaderboard){
+            stringBuilder.append("Name: " + player.getName() + " Score: " + player.getCorrectAnswers() + "\n");
         }
-        concatPlayers+= leaderboard.get(leaderboard.size()-1);
-        return concatPlayers;
+
+        return stringBuilder.toString();
+
     }
 
-    public static void addPlayer(String name, int correctAnswers, int questionsAnswered) {
-        leaderboard.add(findPos(name+": "+correctAnswers+"/"+questionsAnswered),name+": "+correctAnswers+"/"+questionsAnswered);
+    public static String savePlayers(){
+
+        return gson.toJson(leaderboard);
+
     }
+
+
 }
