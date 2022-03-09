@@ -1,5 +1,9 @@
 package com.example.assignment;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -12,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CHEAT_CODE = 999;
+    public static final int REQUEST_CHEAT_CODE = 999;
 
     private TextView question;
     private TextView turnText;
@@ -25,8 +29,25 @@ public class MainActivity extends AppCompatActivity {
     private Player player1;
     private Player player2;
     private Button cheater;
-    
+
     private int turn = 1;
+
+    private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            System.out.println("here");
+
+            if (result.getResultCode() == REQUEST_CHEAT_CODE) { // true if the player has pressed the button to reveal the answer
+                System.out.println("HE CHEATIN'");
+
+                if (turn == 1) {
+                    player1.setCheater(true);
+                } else if (turn == 2) {
+                    player2.setCheater(true);
+                }
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
 
         cheater.setOnClickListener(view -> {
             Intent myIntent = CheatActivity.newIntent(MainActivity.this,questionPool.answerIsCorrect(true));
-            startActivityForResult(myIntent,REQUEST_CHEAT_CODE);
+
+            launcher.launch(myIntent);
 
         });
 
@@ -217,23 +239,5 @@ public class MainActivity extends AppCompatActivity {
                 && player1.getQuestionsAnswered() == totalQuestions;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        if (requestCode == REQUEST_CHEAT_CODE) { // true if the player has pressed the button to reveal the answer
-            System.out.println("HE CHEATIN'");
-            if (data == null) {
-                return;
-            }
-            if (turn == 1) {
-                player1.setCheater(true);
-            } else if (turn == 2) {
-                player2.setCheater(true);
-            }
-        }
-    }
 
 }
