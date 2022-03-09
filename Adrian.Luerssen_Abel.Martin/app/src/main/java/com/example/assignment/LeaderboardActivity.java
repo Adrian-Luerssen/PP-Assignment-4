@@ -39,7 +39,6 @@ public class LeaderboardActivity extends AppCompatActivity {
             Intent newGame = new Intent(LeaderboardActivity.this, NameActivity.class);
             startActivity(newGame);
             leaderboardText.setText(Leaderboard.getTop10());
-            System.out.println("back");
         });
     }
 

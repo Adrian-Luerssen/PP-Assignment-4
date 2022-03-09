@@ -30,7 +30,7 @@ public class Leaderboard {
                     JSONObject playerFormat = gson.fromJson(playerJson, JSONObject.class);
 
                     JSONArray playerTemp = playerFormat.getJSONArray("players");
-                    System.out.println(playerTemp);
+
                     for(int i = 0; i < playerTemp.length(); i++){
                         leaderboard.add(gson.fromJson((JsonElement) playerTemp.get(i), Player.class));
                     }
