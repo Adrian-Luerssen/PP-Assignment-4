@@ -8,7 +8,7 @@
     <string name="toast_answered">This question has already been answered by %s!</string>
     <string name="toast_wrong_input">Please, put something on the text box!</string>
     <string name="Score">Score: 0 / 0</string>
-    <string name="RestartGame">Restart Game</string>
+    <string name="SaveScore">Save Score</string>
     <string name="score_format">Score: %d / %d</string>
     <string name="username_input_menu">Player %d</string>
     <string name="username_input_button">Save</string>

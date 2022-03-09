@@ -34,11 +34,11 @@
             android:text="@string/NoPlayersRegistered"
             />
         <Button
-            android:id="@+id/Restart_Button"
+            android:id="@+id/SaveScore_Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/RestartGame"
+            android:text="@string/SaveScore"
             android:textAlignment="center"/>
 
     </LinearLayout>

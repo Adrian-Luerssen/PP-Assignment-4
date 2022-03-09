@@ -27,22 +27,27 @@ public class Leaderboard {
     }
 
     public static void loadPlayers(String playerJson) {
+        if (playerJson != null){
+            if (!playerJson.equals("[]")){
+                JSONArray playerFormat = gson.fromJson(playerJson, JSONArray.class);
+
+                try {
+
+                    if(playerJson != null) {
+                        for (int i = 0; i < playerFormat.length(); i++) {
+                            leaderboard.add(gson.fromJson(String.valueOf(playerFormat.getJSONObject(i)), Player.class));
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         System.out.print(playerJson);
 
-        JSONArray playerFormat = gson.fromJson(playerJson, JSONArray.class);
 
-        try {
-
-            if(playerJson != null) {
-                for (int i = 0; i < playerFormat.length(); i++) {
-                    leaderboard.add(gson.fromJson(String.valueOf(playerFormat.getJSONObject(i)), Player.class));
-                }
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
     }

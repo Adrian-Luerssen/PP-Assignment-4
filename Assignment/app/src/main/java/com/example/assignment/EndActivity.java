@@ -14,14 +14,14 @@ public class EndActivity extends AppCompatActivity {
     private TextView player1Result;
     private TextView player2Result;
     private TextView winnerBanner;
-    private Button restart;
+    private Button saveScore;
 
 
     private void initVars(){
         player1Result = (TextView) findViewById(R.id.player1Banner);
         player2Result = (TextView) findViewById(R.id.player2Banner);
         winnerBanner = (TextView) findViewById(R.id.WinnerBanner);
-        restart = (Button) findViewById(R.id.Restart_Button);
+        saveScore = (Button) findViewById(R.id.SaveScore_Button);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class EndActivity extends AppCompatActivity {
         if (!p1.isCheater()) Leaderboard.addPlayer(p1);
         if (!p2.isCheater()) Leaderboard.addPlayer(p2);
 
-        restart.setOnClickListener(view -> {
+        saveScore.setOnClickListener(view -> {
             finish();
         });
     }
